@@ -1,0 +1,46 @@
+.about{
+    width: 1300px;
+    height: 500px;
+    display: flex;
+    gap: 30px;
+    margin: auto;
+    padding-top: 50px;
+}
+.about-img img{
+    width: 660px;
+    height: 100%;
+}
+.About-title{
+    font-size: 28px;
+}
+.About-text{
+    font-style: italic;
+}
+.about-list{
+    list-style: none;
+    padding: 0%;
+}
+.About-icon{
+    color: rgb(255, 196, 81);
+    margin-right: 10px;
+}
+.row{
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+.OverView-icon{
+    width: 34px;
+    height: 34px;
+    color: rgb(255, 196, 81);
+}
+.row-content h4{
+    font-size: 20px ;
+    margin: 0%;
+}
+.row-content p{
+    font-size: 15px;
+}
+.OverView-content{
+    padding: 20px;
+}

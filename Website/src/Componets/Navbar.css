@@ -1,0 +1,55 @@
+.nav{
+    margin: 0;
+    padding: 0;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+.logo{
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: -8px;
+    margin-left: 30px;
+}
+.lists{
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    height: 100%;
+    padding: 0px;
+    cursor: pointer;
+}
+.lists li:hover{
+    color: blue;
+    transition: 0.3s;
+}
+.nav-list{
+    display: flex;
+    align-items: center;
+}
+.button{
+    margin-bottom: 10px;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.Nav-icon{
+    width: 60px;
+    height: 30px;
+    cursor: pointer;
+}
+.Nav-icon:hover{
+    color: blue;
+    transition: 0.5s;
+}
