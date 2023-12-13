@@ -1,0 +1,33 @@
+{
+  "posts": [
+    {
+      "title": "life is to enjoy not to impress",
+      "author": "singh",
+      "id": 1
+    },
+    {
+      "title": "life is hard ",
+      "author": " natvarlal",
+      "id": 3
+    },
+    {
+      "title": "Chronicles of the Celestial Realm",
+      "author": "Adrian Hayes",
+      "id": 4
+    },
+    {
+      "title": "The Alchemy of Shadows",
+      "author": "Isabella Nightingale",
+      "id": 5
+    },
+    {
+      "title": "Code for life",
+      "author": "harshit",
+      "id": 6
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}
