@@ -1,0 +1,11 @@
+/* src/App.css */
+.container {
+  width: 90%;
+  margin: 20px auto;
+}
+
+/* Style the box */
+.box {
+  margin-top: 50px;
+  background: #2196f3;
+}

@@ -1,0 +1,14 @@
+{
+  "posts": [
+    {
+      "firstname": "Kamal",
+      "lastName": "Vishwakarma",
+      "age": "45",
+      "id": 7
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "firstname": "Mona",
+      "lastName": "Vishwakarma",
+      "age": "26\\4",
+      "id": 2
+    },
+    {
+      "firstname": "Mona",
+      "lastName": "Vishwakarma",
+      "age": "26",
+      "id": 3
+    },
+    {
+      "firstname": "Mo",
+      "lastName": "Vishwak",
+      "age": "26",
+      "id": 4
+    },
+    {
+      "firstname": "Puran",
+      "lastName": "Vishwakarma",
+      "age": "12",
+      "id": 5
+    },
+    {
+      "firstname": "Puran",
+      "lastName": "Vishwakarma",
+      "age": "24",
+      "id": 6
+    },
+    {
+      "firstname": "Puran",
+      "lastName": "Vishwakarma",
+      "age": "24",
+      "id": 7
+    },
+    {
+      "firstname": "KRISHNA",
+      "lastName": "VISHWAKARMA",
+      "age": "25",
+      "id": 8
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
