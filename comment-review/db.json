@@ -1,0 +1,26 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "comment": "Bootstrap includes several button variants, each serving its own semantic purpose, with a few extras thrown in for more control."
+    },
+    {
+      "comment": "hello my name is puran",
+      "id": 2
+    },
+    {
+      "comment": "what the biggest dream that you archived ",
+      "id": 3
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
