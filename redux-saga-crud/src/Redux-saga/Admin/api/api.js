@@ -24,17 +24,42 @@ export async function get_data_api() {
 // Delete Data api //
 
 export async function delete_data_api(action) {
-
+  console.log(action)
   return (
-    await axios.delete(BASE_URL + DELET_DATA + action.payload.id)
+    await axios.delete(BASE_URL + DELET_DATA + action.payload)
       .then((res) => {
         console.log(res);
 
 
         console.log(res, "from delete api");
-        console.log(action.payload.id, "from delete api");
+        console.log(action.payload, "from delete api");
 
-        const data = action.payload.id;
+        const data = action.payload;
+        const status = res.status;
+        console.log(data, status, "from delete api");
+
+        return {
+          data,
+          status
+        }
+      })
+  )
+}
+
+// Update Data api //
+
+export async function update_data_api(action) {
+  console.log(action)
+  return (
+    await axios.put(BASE_URL + DELET_DATA + action.payload.id ,action.payload)
+      .then((res) => {
+        console.log(res,"from Update api");
+
+
+        console.log(res, "from delete api");
+        console.log(action.payload, "from delete api");
+
+        const data = res.data;
         const status = res.status;
         console.log(data, status, "from delete api");
 
