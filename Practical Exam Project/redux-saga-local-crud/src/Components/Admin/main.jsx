@@ -39,6 +39,7 @@ const Products = () => {
 
   const FinalUpdate = async()=>{
     const update = {
+      id:updateData.id,
       product_name : product_name.current.value,
       price : price.current.value,
       description : description.current.value,
