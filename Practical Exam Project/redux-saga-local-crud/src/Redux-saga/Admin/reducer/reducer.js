@@ -53,7 +53,7 @@ export const productReducer = (state = intailState, action) => {
         ...state,
         isLoading: false,
         isError: null,
-        products: action.data
+        products: [...state.products.filter((item)=> item.id === action.data.id),... action.data]
       }
     }
 
@@ -88,7 +88,7 @@ export const productReducer = (state = intailState, action) => {
       return {
         ...state,
         isLoading: false,
-        isError: action.data
+        isError :action.data
       }
     }
     // Delete Data //

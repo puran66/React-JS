@@ -2,17 +2,17 @@
   "posts": [
     {
       "id": 1,
-      "product_name": "Numi - Assorted Teas",
-      "price": "$9.49",
-      "description": "Mtrcy driver injured in nonclsn trnsp acc in traf, sequela",
-      "availability": false
+      "product_name": "",
+      "price": "",
+      "description": "",
+      "availability": ""
     },
     {
       "id": 3,
-      "product_name": "Wine - Saint Emilion Calvet",
-      "price": "$3.80",
-      "description": "Laceration without foreign body, left ankle, init encntr",
-      "availability": false
+      "product_name": "",
+      "price": "",
+      "description": "",
+      "availability": ""
     },
     {
       "id": 4,
