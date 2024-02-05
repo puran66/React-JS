@@ -1,15 +1,16 @@
-import { ADD_PARTY_ERROR, ADD_PARTY_PROGRESS, ADD_PARTY_SUCCESS, ADD_USER_ERROR, ADD_USER_PROGRESS, ADD_USER_SUCCESS, DELETE_USER_ERROR, DELETE_USER_PROGRESS, DELETE_USER_SUCCESS, GET_PARTY_PROGRESS, GET_USER_ERROR, GET_USER_PROGRESS, GET_USER_SUCCESS, UPDATE_USER_ERROR, UPDATE_USER_PROGRESS, UPDATE_USER_SUCCESS } from "../action/action"
+import { ADD_PARTY_ERROR, ADD_PARTY_PROGRESS, ADD_PARTY_SUCCESS, ADD_USER_ERROR, ADD_USER_PROGRESS, ADD_USER_SUCCESS, DELETE_PARTY_PROGRESS, DELETE_USER_ERROR, DELETE_USER_PROGRESS, DELETE_USER_SUCCESS, GET_PARTY_ERROR, GET_PARTY_PROGRESS, GET_PARTY_SUCCESS, GET_USER_ERROR, GET_USER_PROGRESS, GET_USER_SUCCESS, UPDATE_PARTY_ERROR, UPDATE_PARTY_PROGRESS, UPDATE_PARTY_SUCCESS, UPDATE_USER_ERROR, UPDATE_USER_PROGRESS, UPDATE_USER_SUCCESS } from "../action/action"
 
 
 const intailState = {
   users: [],
-  parties:[],
+  parties: [],
+  elections: [],
   isLoading: false,
   isError: null
 }
 
 export const userReducer = (state = intailState, action) => {
-  console.log(action.data, "FROM REDUCER");
+  console.log(action.payload, "FROM REDUCER");
   switch (action.type) {
     default: {
       return state
@@ -107,7 +108,7 @@ export const userReducer = (state = intailState, action) => {
         ...state,
         isLoading: false,
         isError: null,
-        users: [...state.users,action.data]
+        users: [...state.users, action.data]
       }
     }
 
@@ -134,7 +135,7 @@ export const userReducer = (state = intailState, action) => {
         ...state,
         isLoading: false,
         isError: null,
-        parties: [...state.parties,action.data]
+        parties: [...state.parties, action.data]
       }
     }
 
@@ -155,7 +156,7 @@ export const userReducer = (state = intailState, action) => {
       }
     }
 
-    case GET_USER_SUCCESS: {
+    case GET_PARTY_SUCCESS: {
       return {
         ...state,
         isLoading: false,
@@ -164,7 +165,87 @@ export const userReducer = (state = intailState, action) => {
       }
     }
 
-    case GET_USER_ERROR: {
+    case GET_PARTY_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.data
+      }
+    }
+
+    // // Delete Data //
+
+    case DELETE_PARTY_PROGRESS: {
+      return {
+        ...state,
+        isLoading: true,
+        isError: null
+      }
+    }
+
+    case DELETE_USER_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        isError: null,
+        parties: state.parties.filter((item, ind) => ind !== action.index)
+      }
+    }
+
+    case DELETE_USER_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.data
+      }
+    }
+
+    // Update PARTY DATA //
+    case UPDATE_PARTY_PROGRESS: {
+      return {
+        ...state,
+        isLoading: true,
+        isError: null
+      }
+    }
+
+    case UPDATE_PARTY_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        isError: null,
+        parties: [...state.parties.filter((item) => item.id === action.data._id), ...action.data]
+      }
+    }
+
+    case UPDATE_PARTY_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        isError: action.data
+      }
+    }
+
+    // ADD Party Data //
+
+    case ADD_PARTY_PROGRESS: {
+      return {
+        ...state,
+        isLoading: true,
+        isError: null
+      }
+    }
+
+    case ADD_PARTY_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        isError: null,
+        elections: [...state.elections, action.data]
+      }
+    }
+
+    case ADD_PARTY_ERROR: {
       return {
         ...state,
         isLoading: false,

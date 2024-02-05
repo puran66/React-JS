@@ -8,3 +8,6 @@ export const DELETE_USER = "/authdel/" // +:_Id//
 export const ADD_NEW_USER = "/auth" // +data //
 export const ADD_NEW_PARTY = "/party" ///Data//
 export const GET_PARTIES = "/pList"
+export const DELETE_PARTY = "/pdel/" ///id///
+export const UPDATE_PARTY = "/pup/"  ///id///
+export const ADD_ELECTION = "/ele"    ///Data///

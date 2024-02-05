@@ -30,6 +30,7 @@ function App() {
         <Route path="/AddElection" element={<Protected page={AddElection} />} />
         <Route path="/AddParty" element={<Protected page={AddParty} />} />
         <Route path="/Parties" element={<Protected page={Parties} />} />
+        <Route path="/AddElection" element={<Protected page={AddElection} />} />
         <Route path="/Profile" element={<Protected page={Profile} />} />
         <Route path="/Help" element={<Help/>} />
         <Route path="/Login" element={<Login />} />

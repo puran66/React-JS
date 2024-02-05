@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
-import { add_party_api, add_user_api, delete_user_api, get_data_api, get_party_api, update_user_api } from '../../Admin/api/api';
-import { ADD_PARTY_ERROR, ADD_PARTY_SUCCESS, ADD_USER_ERROR, ADD_USER_SUCCESS, DELETE_USER_ERROR, DELETE_USER_SUCCESS, GET_PARTY_ERROR, GET_PARTY_SUCCESS, GET_USER_ERROR, GET_USER_SUCCESS, UPDATE_USER_ERROR, UPDATE_USER_SUCCESS } from '../../Admin/action/action';
+import { add_election_api, add_party_api, add_user_api, delete_party_api, delete_user_api, get_data_api, get_party_api, update_party_api, update_user_api } from '../../Admin/api/api';
+import { ADD_PARTY_ERROR, ADD_PARTY_SUCCESS, ADD_USER_ERROR, ADD_USER_SUCCESS, Add_ELECTION_ERROR, Add_ELECTION_PROGRESS, Add_ELECTION_SUCCESS, DELETE_USER_ERROR, DELETE_USER_SUCCESS, GET_PARTY_ERROR, GET_PARTY_SUCCESS, GET_USER_ERROR, GET_USER_SUCCESS, UPDATE_USER_ERROR, UPDATE_USER_SUCCESS } from '../../Admin/action/action';
 
 // GET user SAGA //
 
@@ -138,5 +138,74 @@ export function* getPartySaga(action) {
   }
   catch (err) {
     yield put({ type: GET_PARTY_ERROR, err })
+  }
+}
+
+// Delete user SAGA //
+
+export function* deletePartySaga(action) {
+  try {
+    const response = yield call(delete_party_api, action)
+
+    console.log(response, "from delete party saga");
+
+    const { id, status } = response;
+
+    if (status === 200 || status === 201) {
+      yield put({ type: DELETE_USER_SUCCESS, id })
+    }
+    else {
+      yield put({ type: DELETE_USER_ERROR, id })
+    }
+  }
+  catch (err) {
+    yield put({ type: DELETE_USER_ERROR, err })
+  }
+}
+
+
+// Update Party Data SAGA //
+
+export function* updatePartySaga(action) {
+  try {
+    const response = yield call(update_party_api, action)
+
+    console.log(response, "from update party saga");
+
+    const { data, status } = response;
+
+    if (status === 200 || status === 201) {
+      yield put({ type: UPDATE_USER_SUCCESS, data })
+    }
+    else {
+      yield put({ type: UPDATE_USER_ERROR, data })
+    }
+  }
+  catch (err) {
+    yield put({ type: UPDATE_USER_ERROR, err })
+  }
+}
+
+// Add Election SAGA //
+
+export function* addElectionSaga(action) {
+  try {
+    const response = yield call(add_election_api, action)
+
+    console.log(response, "from ADD Election saga");
+
+    const { data, status } = response;
+
+    console.log(data, status, "from saga");
+
+    if (status === 200 || status === 201) {
+      yield put({ type: Add_ELECTION_SUCCESS, data })
+    }
+    else {
+      yield put({ type: Add_ELECTION_ERROR, data })
+    }
+  }
+  catch (err) {
+    yield put({ type: Add_ELECTION_ERROR, err })
   }
 }

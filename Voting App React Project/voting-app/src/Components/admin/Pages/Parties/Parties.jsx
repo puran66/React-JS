@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useMediaQuery } from 'react-responsive';
-import { DELETE_USER_PROGRESS, GET_PARTY_PROGRESS, GET_USER_PROGRESS, UPDATE_USER_PROGRESS } from '../../../Redux/Admin/action/action';
+import { DELETE_PARTY_PROGRESS, GET_PARTY_PROGRESS, UPDATE_PARTY_PROGRESS } from '../../../Redux/Admin/action/action';
+import { toast } from 'react-toastify';
 
 const Parties = () => {
   const [searchInput, setSearch] = useState("");
   const [showView, setShow] = useState("none")
   const [hideMain, setHide] = useState("block")
   const [view, setView] = useState([])
-  const allUsers = useSelector((state) => state.userReducer.users)
-  const state = useSelector((state) => state)
+  const allParties = useSelector((state) => state.userReducer.parties)
+
+  console.log(allParties);
 
   const isMobileSmallScreen = useMediaQuery({ maxWidth: 500 });
-  const isBigScreen = useMediaQuery({ minWidth: 501 , maxWidth: 1536  });
+  const isBigScreen = useMediaQuery({ minWidth: 501, maxWidth: 1536 });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Get all users data from the server.
 
-  
+
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -32,12 +36,12 @@ const Parties = () => {
   }, [])
 
   const handleDelete = (id, index) => {
-    dispatch({ type: DELETE_USER_PROGRESS, payload: { id, index } })
+    dispatch({ type: DELETE_PARTY_PROGRESS, payload: { id, index } })
   }
 
   const handleView = (index) => {
-    console.log(index, allUsers[index]);
-    setView(allUsers[index]);
+    console.log(index, allParties[index]);
+    setView(allParties[index]);
     setHide("none")
     setShow("block");
   }
@@ -48,7 +52,15 @@ const Parties = () => {
   }
 
   const handleUpdate = () => {
-    dispatch({ type: UPDATE_USER_PROGRESS, payload: view })
+    dispatch({ type: UPDATE_PARTY_PROGRESS, payload: view })
+
+    const update =  toast.loading("Updating Data...")
+    setTimeout(()=>{
+      toast.dismiss(update);
+
+      navigate("/Parties")
+      toast.success("Updated Data Successfully!")
+    },4000)
   }
 
   const handleClose = () => {
@@ -56,6 +68,7 @@ const Parties = () => {
     setHide('block')
   }
 
+  console.log(allParties);
   return (
     <>
       <div style={{ display: hideMain }}>
@@ -83,7 +96,7 @@ const Parties = () => {
               type="search"
               id="default-search"
               className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search User..."
+              placeholder="Search Party..."
               required=""
               onChange={(e) => handleSearch(e)}
             />
@@ -98,97 +111,104 @@ const Parties = () => {
 
 
         {/* table for user data */}
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full m-auto mt-14">
-          {
-            isMobileSmallScreen && (
-              <table className="w-[70%] m-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                  <tr>
-                    <th scope="col" className="px-4 py-3">
-                      Party Profile
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Party Name
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allUsers
-                    .filter((item) => {
-                      return (
-                        searchInput.toLocaleLowerCase() === "" ? item : item.Name.toLocaleLowerCase().includes(searchInput)
-                      );
-                    })
-                    .map((item, ind) => (
-                      <tr key={ind} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 lg:text-[18px] sm:text-[16px] text-[14px]">
-                        <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                          <img src={item.Profile} alt="profile-img" className="w-[70px] h-[40px] sm:w-[80px] sm:h-[50px] object-cover" />
-                        </td>
-                        <td className="px-4 py-3">{item.Name}</td>
-                        <td className="">
-                          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => handleView(ind)}>
-                            More...
-                          </button>
-                        </td>
+        {
+          allParties ? (
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full m-auto mt-14">
+              {
+                isMobileSmallScreen && (
+                  <table className="w-[70%] m-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                      <tr>
+                        <th scope="col" className="px-4 py-3">
+                          Party Profile
+                        </th>
+                        <th scope="col" className="px-4 py-3">
+                          Party Name
+                        </th>
+                        <th scope="col" className="px-4 py-3">
+                        </th>
                       </tr>
-                    ))}
-                </tbody>
-              </table>
-            )
-          }
-          {
-            isBigScreen && (
-              <table className="w-[70%] m-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                  <tr>
-                    <th scope="col" className="px-4 py-3">
-                      Party Profile
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Party Name
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Party short Code
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allUsers
-                    .filter((item) => {
-                      return (
-                        searchInput.toLocaleLowerCase() === "" ? item : item.Name.toLocaleLowerCase().includes(searchInput)
-                      );
-                    })
-                    .map((item, ind) => (
-                      <tr key={ind} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 lg:text-[18px] sm:text-[16px] text-[14px]">
-                        <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                          <img src={item.Profile} alt="profile-img" className="w-[70px] h-[40px] sm:w-[80px] sm:h-[50px] object-cover" />
-                        </td>
-                        <td className="px-4 py-3">{item.Name}</td>
-                        <td className="px-4 py-3">{item.Sex}</td>
-                        <td className="">
-                          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => handleView(ind)}>
-                            Update
-                          </button>
-                        </td>
-                        <td className="">
-                          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => handleDelete(item._id, ind)}>
-                            Delete
-                          </button>
-                        </td>
+                    </thead>
+                    <tbody>
+                      {console.log(allParties)
+                        .filter((item) => {
+                          return (
+                            searchInput.toLocaleLowerCase() === "" ? item : item.Name.toLocaleLowerCase().includes(searchInput)
+                          );
+                        })
+                        .map((item, ind) => (
+                          <tr key={ind} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 lg:text-[18px] sm:text-[16px] text-[14px]">
+                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              <img src={item.Profile} alt="profile-img" className="w-[70px] h-[40px] sm:w-[80px] sm:h-[50px] object-cover" />
+                            </td>
+                            <td className="px-4 py-3">{item.pName}</td>
+                            <td className="px-4 py-3">{item.shortCode}</td>
+                            <td className="">
+                              <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => handleView(ind)}>
+                                More...
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                )
+              }
+              {
+                isBigScreen && (
+                  <table className="w-[70%] m-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                      <tr>
+                        <th scope="col" className="px-4 py-3">
+                          Party Profile
+                        </th>
+                        <th scope="col" className="px-4 py-3">
+                          Party Name
+                        </th>
+                        <th scope="col" className="px-4 py-3">
+                          Party short Code
+                        </th>
+                        <th scope="col" className="px-4 py-3">
+                        </th>
+                        <th scope="col" className="px-4 py-3">
+                        </th>
                       </tr>
-                    ))}
-                </tbody>
-              </table>
-            )
-          }
-        </div>
+                    </thead>
+                    <tbody>
+                      {allParties
+                        .filter((item) => {
+                          return (
+                            searchInput.toLocaleLowerCase() === "" ? item : item.pName.toLocaleLowerCase().includes(searchInput)
+                          );
+                        })
+                        .map((item, ind) => (
+                          <tr key={ind} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 lg:text-[18px] sm:text-[16px] text-[14px]">
+                            <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                              <img src={item.Profile} alt="profile-img" className="w-[70px] h-[40px] sm:w-[80px] sm:h-[50px] object-cover" />
+                            </td>
+                            <td className="px-4 py-3">{item.pName}</td>
+                            <td className="px-4 py-3">{item.shortCode}</td>
+                            <td className="">
+                              <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => handleView(ind)}>
+                                Update
+                              </button>
+                            </td>
+                            <td className="">
+                              <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => handleDelete(item._id, ind)}>
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                )
+              }
+            </div>
+          ) : (
+            toast.loading("Parties  are loading...")
+          )
+        }
 
       </div>
 
@@ -198,7 +218,7 @@ const Parties = () => {
         view && (
           <div style={{ display: showView }}>
             <div className="login-field w-full h-[100vh] flex flex-col justify-center items-center">
-              <div className="input-field border-2 border-color: rgb(29 78 216);  p-5  sm:w-[50%] w-[80%] sm:p-5 my-16 sm:text-[16px] text-[12px] rounded-md sm:m-[0] ">
+              <div className="input-field border-2 border-color: rgb(29 78 216);  p-5  sm:w-[40%] w-[60%] sm:p-5 my-16 sm:text-[16px] text-[12px] rounded-md sm:m-[0] ">
                 <div className="flex justify-between border-b-2">
                   <h5 className="font-bold text-[18px] mb-[10px]" >Update Details</h5>
                   <FontAwesomeIcon icon={faXmark} style={{ fontSize: "24px", cursor: "pointer" }} onClick={handleClose} />
@@ -212,34 +232,14 @@ const Parties = () => {
                   <input type="text" className="border-2 border-color: rgb(29 78 216); rounded-md mb-[5px] w-[100%] m-[5px] p-1" value={view.Profile} onChange={(e) => handleChange(e)} name="Profile" />
                 </div>
                 <div>
-                  <label htmlFor='voterId' className="font-semibold mb-[10px] ml-2">Name</label>
+                  <label htmlFor='voterId' className="font-semibold mb-[10px] ml-2">Party Name</label>
                   <br />
-                  <input type="text" className="border-2 border-color: rgb(29 78 216); rounded-md mb-[5px] w-[100%] m-[5px] p-1" value={view.Name} onChange={(e) => handleChange(e)} name="Name" />
+                  <input type="text" className="border-2 border-color: rgb(29 78 216); rounded-md mb-[5px] w-[100%] m-[5px] p-1" value={view.pName} onChange={(e) => handleChange(e)} name="pName" />
                 </div>
                 <div>
-                  <label htmlFor='voterId' className="font-semibold mb-[10px] ml-2">Sex</label>
+                  <label htmlFor='voterId' className="font-semibold mb-[10px] ml-2">Party shortCode</label>
                   <br />
-                  <input type="text" className="border-2 border-color: rgb(29 78 216); rounded-md mb-[5px] w-[100%] m-[5px] p-1" value={view.Sex} onChange={(e) => handleChange(e)} name="Sex" />
-                </div>
-                <div>
-                  <label htmlFor='voterId' className="font-semibold mb-[10px] ml-2">DOB</label>
-                  <br />
-                  <input type="text" className="border-2 border-color: rgb(29 78 216); rounded-md mb-[5px] w-[100%] m-[5px] p-1" value={view.DOB} onChange={(e) => handleChange(e)} name="DOB" />
-                </div>
-                <div>
-                  <label htmlFor='voterId' className="font-semibold mb-[10px] ml-2">Phone</label>
-                  <br />
-                  <input type="text" className="border-2 border-color: rgb(29 78 216); rounded-md mb-[5px] w-[100%] m-[5px] p-1" value={view.Phone} onChange={(e) => handleChange(e)} name="Phone" />
-                </div>
-                <div>
-                  <label htmlFor='voterId' className="font-semibold mb-[10px] ml-2">Email</label>
-                  <br />
-                  <input type="text" className="border-2 border-color: rgb(29 78 216); rounded-md mb-[5px] w-[100%] m-[5px] p-1" value={view.Email} onChange={(e) => handleChange(e)} name="Email" />
-                </div>
-                <div>
-                  <label htmlFor='voterId' className="font-semibold mb-[10px] ml-2">Address</label>
-                  <br />
-                  <input type="text" className="border-2 border-color: rgb(29 78 216); rounded-md mb-[5px] w-[100%] m-[5px] p-1" value={view.Address} onChange={(e) => handleChange(e)} name="Address" />
+                  <input type="text" className="border-2 border-color: rgb(29 78 216); rounded-md mb-[5px] w-[100%] m-[5px] p-1" value={view.shortCode} onChange={(e) => handleChange(e)} name="shortCode" />
                 </div>
                 <div className="flex justify-center mt-3">
                   <button className="text-white sm:text-[16px] text-[12px] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg sm:px-5 py-2.5  mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-[30%] sm:w-[40%]" onClick={() => handleUpdate()}>Update</button>

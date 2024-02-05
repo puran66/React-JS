@@ -1,6 +1,6 @@
 import { takeLatest } from "@redux-saga/core/effects";
-import { ADD_PARTY_PROGRESS, ADD_USER_PROGRESS, DELETE_USER_PROGRESS, GET_PARTY_PROGRESS, GET_USER_PROGRESS, UPDATE_USER_PROGRESS } from "../../Admin/action/action";
-import { addPartySaga, addUserSaga, deleteUserSaga, getPartySaga, updateUserSaga, userSaga } from "../Admin/ManageUserSaga";
+import { ADD_PARTY_PROGRESS, ADD_USER_PROGRESS, Add_ELECTION_PROGRESS, DELETE_PARTY_PROGRESS, DELETE_USER_PROGRESS, GET_PARTY_PROGRESS, GET_USER_PROGRESS, UPDATE_PARTY_PROGRESS, UPDATE_USER_PROGRESS } from "../../Admin/action/action";
+import { addElectionSaga, addPartySaga, addUserSaga, deletePartySaga, deleteUserSaga, getPartySaga, updatePartySaga, updateUserSaga, userSaga } from "../Admin/ManageUserSaga";
 
 // handle user saga //
 export function* handle_userSaga(){
@@ -30,4 +30,19 @@ export function* handle_addPartySaga(){
 // handle get Party saga //
 export function* handle_getPartySaga(){
   yield takeLatest(GET_PARTY_PROGRESS,getPartySaga)
+}
+
+// handle Delete Party saga //
+export function* handle_deletePartySaga(){
+  yield takeLatest(DELETE_PARTY_PROGRESS,deletePartySaga)
+}
+
+// handle Update Party saga //
+export function* handle_updatePartySaga(){
+  yield takeLatest(UPDATE_PARTY_PROGRESS,updatePartySaga)
+}
+
+// handle add election saga //
+export function* handle_addElectionSaga(){
+  yield takeLatest(Add_ELECTION_PROGRESS,addElectionSaga)
 }

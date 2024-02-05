@@ -32,6 +32,11 @@ const AddParty = () => {
       const add = toast.loading("Party Adding...");
 
       setTimeout(() => {
+
+        Profile.current.value = ""
+        pName.current.value = ""
+        shortCode.current.value = ""
+
         toast.dismiss(add)
         toast.success("Party Added Successfully!")
       }, 3000)
