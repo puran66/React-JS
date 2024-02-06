@@ -1,7 +1,7 @@
 
 ## Screenshots
 
-![Screenshot](https://github.com/SharmaNatvar/ReactJS/blob/main/voting/src/assets/ss/img0.png)
+<!-- ![Screenshot](https://github.com/SharmaNatvar/ReactJS/blob/main/voting/src/assets/ss/img0.png) -->
 
 
 

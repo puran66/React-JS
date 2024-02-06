@@ -85,7 +85,13 @@ const Navbar = ({ navData }) => {
                             <li className="mt-2 hover:text-blue-500 border-b-2">Add Election</li>
                           </Link>
                           <Link to="/Elections">
-                            <li className="mt-2 hover:text-blue-500 border-b-2">Elections</li>
+                            <li className="mt-2 hover:text-blue-500 border-b-2">View Elections</li>
+                          </Link>
+                          <Link to="/PartyList">
+                            <li className="mt-2 hover:text-blue-500 border-b-2">View PartyList</li>
+                          </Link>
+                          <Link to="/AddPartyList">
+                            <li className="mt-2 hover:text-blue-500 border-b-2">Add PartyList</li>
                           </Link>
                           <Link to="/Votes">
                             <li className="mt-2 hover:text-blue-500 border-b-2">Votes</li>
